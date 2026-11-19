@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="715" height="1024" viewBox="0 0 715 1024">
+  <defs>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#206d67" />
+      <stop offset="60%" stop-color="#185752" />
+      <stop offset="100%" stop-color="#123f3c" />
+    </linearGradient>
+  </defs>
+  <rect width="715" height="1024" fill="url(#tealGrad)" />
+  <path d="M 129 0 C 110 200, 21 450, 21 680 C 21 800, 55 960, 129 1024 L 586 1024 C 660 960, 694 800, 694 680 C 694 450, 605 200, 586 0 Z" fill="#ffffff" />
+</svg>

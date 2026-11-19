@@ -1,0 +1,251 @@
+:root {
+  --climate-teal: #1f746f;
+  --climate-dark: #17544f;
+  --climate-bg: #f8f9f6;
+  --climate-text: #142520;
+  --climate-muted: #71827c;
+}
+
+.climate-screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--climate-bg);
+}
+
+.climate-top-bar,
+.climate-bottom-bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 85px;
+  z-index: 5;
+  pointer-events: none;
+}
+.climate-top-bar { top: 0; }
+.climate-bottom-bar { bottom: 0; }
+.climate-top-bar svg,
+.climate-bottom-bar svg { width: 100%; height: 100%; display: block; }
+.climate-top-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: Georgia, serif;
+  font-size: clamp(1.25rem, 4vw, 1.7rem);
+  letter-spacing: .05em;
+  padding-bottom: 16px;
+}
+
+.climate-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 5.5rem 1.25rem 5.2rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.climate-container::-webkit-scrollbar { display: none; }
+
+.climate-header {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-bottom: 1.15rem;
+}
+.climate-back {
+  border: 0;
+  background: transparent;
+  color: var(--climate-text);
+  font-size: 2.15rem;
+  line-height: 1;
+  padding: 0 .25rem;
+  cursor: pointer;
+}
+.climate-header h1 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: clamp(1.55rem, 5vw, 1.95rem);
+  font-weight: 500;
+  color: var(--climate-text);
+}
+
+.climate-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.climate-panel h2 {
+  margin: .75rem 0 1.15rem;
+  font-family: Georgia, serif;
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+  font-weight: 500;
+  color: var(--climate-text);
+  text-align: center;
+}
+
+.climate-control-card {
+  width: 100%;
+  min-height: 390px;
+  box-sizing: border-box;
+  padding: 1.35rem 1.25rem 1.25rem;
+  border: 1px solid rgba(31, 116, 111, .08);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 7px 22px rgba(18, 63, 60, .08);
+}
+.climate-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.05rem;
+  font-size: .78rem;
+  font-weight: 700;
+}
+.climate-status-dot { color: #23817a; }
+.climate-room-temp { color: #93a29d; font-weight: 500; }
+
+.climate-dial-wrap {
+  min-height: 250px;
+  display: grid;
+  grid-template-columns: 62px minmax(190px, 238px) 62px;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+}
+.climate-step {
+  width: 62px;
+  height: 62px;
+  border: 0;
+  border-radius: 50%;
+  background: #eef3f1;
+  color: #1f746f;
+  font-size: 1.9rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(18, 63, 60, .06);
+  transition: transform .18s ease, background .18s ease;
+}
+.climate-step:hover:not(:disabled) { transform: scale(1.05); background: #e5eeea; }
+.climate-step:active:not(:disabled) { transform: scale(.96); }
+.climate-step:disabled {
+  color: #a8b5b1;
+  background: #f2f4f3;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.climate-dial {
+  --temperature-progress: 57%;
+  position: relative;
+  width: 238px;
+  height: 238px;
+  max-width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, #fff 58%, transparent 59%),
+    conic-gradient(from 225deg, #1f746f 0 var(--temperature-progress), #dfe6e3 var(--temperature-progress) 75%, transparent 75%);
+  box-shadow: inset 0 0 0 1px rgba(31, 116, 111, .02);
+  transition: background .25s ease;
+}
+.climate-dial::before {
+  content: "";
+  position: absolute;
+  inset: 11px;
+  border-radius: 50%;
+  border: 1px solid rgba(31, 116, 111, .03);
+  pointer-events: none;
+}
+.climate-dial-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.climate-snowflake {
+  color: #318b84;
+  font-size: 1.2rem;
+  margin-bottom: .15rem;
+}
+.climate-dial-inner strong {
+  color: #17544f;
+  font-family: Georgia, serif;
+  font-size: clamp(3.7rem, 14vw, 5.2rem);
+  line-height: 1;
+  font-weight: 400;
+}
+.climate-dial-inner small {
+  margin-top: .55rem;
+  color: #82948f;
+  font-size: .78rem;
+}
+
+.climate-modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .55rem;
+  margin-top: .25rem;
+}
+.climate-modes button {
+  min-height: 48px;
+  border: 0;
+  border-radius: 10px;
+  background: #eef3f1;
+  color: #61736d;
+  font-size: .86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .18s ease;
+}
+.climate-modes button.active {
+  background: var(--climate-teal);
+  color: #fff;
+  box-shadow: 0 5px 12px rgba(31, 116, 111, .18);
+}
+
+.climate-main-action {
+  width: 100%;
+  min-height: 58px;
+  margin-top: 1.25rem;
+  border: 0;
+  border-radius: 12px;
+  background: var(--climate-teal);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 5px 14px rgba(31, 116, 111, .18);
+}
+
+@media (max-width: 390px) {
+  .climate-dial-wrap {
+    grid-template-columns: 50px minmax(174px, 210px) 50px;
+  }
+  .climate-dial { width: 210px; height: 210px; }
+  .climate-step { width: 50px; height: 50px; }
+}
+
+@media (max-height: 700px) {
+  .climate-container { padding-top: 4.8rem; }
+  .climate-panel h2 { margin: .2rem 0 .65rem; }
+  .climate-control-card { min-height: 350px; }
+  .climate-dial-wrap { min-height: 220px; }
+  .climate-dial { width: 210px; height: 210px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .climate-step,
+  .climate-modes button { transition: none; }
+}
