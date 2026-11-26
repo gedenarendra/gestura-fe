@@ -9,10 +9,10 @@ import { CurtainsScreen } from "./components/CurtainsScreen";
 import { PrivacyScreen } from "./components/PrivacyScreen";
 
 const LAYER_BASE =
-  "absolute inset-0 w-full h-full box-border overflow-hidden transition-[transform,opacity] duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] will-change-[transform,opacity] motion-reduce:transition-none";
-const LAYER_ACTIVE = "opacity-100 translate-y-0 scale-100 pointer-events-auto z-[2]";
-const LAYER_INACTIVE = "opacity-0 translate-y-8 scale-[0.98] pointer-events-none z-[1]";
-const SPLASH_INACTIVE = "opacity-0 -translate-y-6 scale-[0.96] pointer-events-none z-[1]";
+  "absolute inset-0 w-full h-full box-border overflow-hidden transition-[transform,opacity] duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-[transform,opacity] motion-reduce:transition-none";
+const LAYER_ACTIVE = "opacity-100 translate-y-0 scale-100 pointer-events-auto z-2";
+const LAYER_INACTIVE = "opacity-0 translate-y-8 scale-98 pointer-events-none z-1";
+const SPLASH_INACTIVE = "opacity-0 -translate-y-6 scale-96 pointer-events-none z-1";
 
 /**
  * Root Application Component

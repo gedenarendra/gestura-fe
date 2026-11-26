@@ -7,7 +7,7 @@ import iconCurtains from "../../assets/icon-curtains.png";
 import iconPrivacy from "../../assets/icon-privacy.png";
 
 const LANDING_CARD_BASE =
-  "relative bg-white border border-solid rounded-[20px] aspect-square flex flex-col items-center justify-center py-[1rem] px-[0.5rem] m-0 cursor-pointer transition-[transform,box-shadow,border-color] duration-[250ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] select-none [-webkit-tap-highlight-color:transparent] outline-none box-border hover:-translate-y-[4px] hover:scale-[1.02] hover:shadow-[0_14px_30px_rgba(0,0,0,0.1),0_4px_10px_rgba(0,0,0,0.05)] hover:border-[rgba(31,116,111,0.2)] active:-translate-y-[1px] active:scale-[0.99] focus-visible:outline-[2.5px] focus-visible:outline-[#1f746f] focus-visible:outline-offset-[4px] motion-reduce:transition-none";
+  "relative bg-white border border-solid rounded-[20px] aspect-square flex flex-col items-center justify-center py-4 px-2 m-0 cursor-pointer transition-[transform,box-shadow,border-color] duration-250 ease-[cubic-bezier(0.34,1.56,0.64,1)] select-none [-webkit-tap-highlight-color:transparent] outline-none box-border hover:-translate-y-1 hover:scale-102 hover:shadow-[0_14px_30px_rgba(0,0,0,0.1),0_4px_10px_rgba(0,0,0,0.05)] hover:border-[#1f746f]/20 active:-translate-y-px active:scale-[0.99] focus-visible:outline-[2.5px] focus-visible:outline-[#1f746f] focus-visible:outline-offset-[4px] motion-reduce:transition-none";
 
 /**
  * Daftar layanan hotel pada Landing Screen
@@ -74,7 +74,7 @@ export function LandingScreen({ onSelectService, greeting = "Good Morning" }) {
       aria-label="Gestura Concierge Dashboard"
     >
       {/* Bar atas lengkung dark teal */}
-      <div className="absolute top-0 left-0 right-0 w-full h-[80px] z-[3] pointer-events-none" aria-hidden="true">
+      <div className="absolute top-0 left-0 right-0 w-full h-[80px] z-3 pointer-events-none" aria-hidden="true">
         <svg
           viewBox="0 0 1000 100"
           preserveAspectRatio="none"
@@ -101,15 +101,15 @@ export function LandingScreen({ onSelectService, greeting = "Good Morning" }) {
       </div>
 
       {/* Konten Utama */}
-      <div className="relative z-[2] w-full max-w-[480px] h-full flex flex-col justify-center items-center pt-[5.5rem] px-[1.75rem] pb-[5rem] box-border animate-landing-fade-in max-h-short:pt-[4.5rem] max-h-short:px-[1.25rem] max-h-short:pb-[4rem] motion-reduce:animate-none">
+      <div className="relative z-2 w-full max-w-[480px] h-full flex flex-col justify-center items-center pt-22 px-7 pb-20 box-border animate-landing-fade-in max-h-short:pt-18 max-h-short:px-5 max-h-short:pb-16 motion-reduce:animate-none">
         {/* Header Ucapan Salam & Ikon Bunga Kamboja */}
-        <header className="mb-[2.25rem] flex justify-center items-center w-full max-h-short:mb-[1.25rem]">
+        <header className="mb-9 flex justify-center items-center w-full max-h-short:mb-5">
           <h1 className="m-0 inline-flex items-center justify-center gap-[0.65rem] font-serif-brand text-[clamp(2rem,5.5vw,2.5rem)] font-medium tracking-[0.02em] text-[#162420] leading-[1.2]">
             <span>{greeting}</span>
             <img
               src="/Bunga%20kamboja%20GESTURA.png"
               alt=""
-              className="w-[clamp(52px,11vw,68px)] h-[clamp(52px,11vw,68px)] object-contain object-center select-none [-webkit-user-drag:none] mix-blend-screen [filter:saturate(0.92)_contrast(1.04)_drop-shadow(0_5px_8px_rgba(20,34,30,0.12))] -translate-y-[1px]"
+              className="w-[clamp(52px,11vw,68px)] h-[clamp(52px,11vw,68px)] object-contain object-center select-none [-webkit-user-drag:none] mix-blend-screen [filter:saturate(0.92)_contrast(1.04)_drop-shadow(0_5px_8px_rgba(20,34,30,0.12))] -translate-y-px"
               aria-hidden="true"
             />
           </h1>
@@ -130,7 +130,7 @@ export function LandingScreen({ onSelectService, greeting = "Good Morning" }) {
                 className={`${LANDING_CARD_BASE} ${
                   isSelected
                     ? "border-[#1f746f] shadow-[0_0_0_2px_#1f746f,0_14px_30px_rgba(0,0,0,0.1),0_4px_10px_rgba(0,0,0,0.05)]"
-                    : "border-black/[0.03] shadow-[0_8px_22px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)]"
+                    : "border-black/3 shadow-[0_8px_22px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)]"
                 }`}
                 onClick={() => handleServiceClick(service)}
                 aria-label={`${service.label}: ${service.description}`}
@@ -156,7 +156,7 @@ export function LandingScreen({ onSelectService, greeting = "Good Morning" }) {
       </div>
 
       {/* Bar bawah lengkung dark teal */}
-      <div className="absolute bottom-0 left-0 right-0 w-full h-[80px] z-[3] pointer-events-none" aria-hidden="true">
+      <div className="absolute bottom-0 left-0 right-0 w-full h-[80px] z-3 pointer-events-none" aria-hidden="true">
         <svg
           viewBox="0 0 1000 100"
           preserveAspectRatio="none"

@@ -4,13 +4,15 @@ import spaImage from "../../assets/gambar spa.png";
 const TIMES = ["07.00", "08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00"];
 
 const SPA_PRIMARY_CLASS =
-  "w-full min-h-[58px] rounded-[12px] text-[1rem] font-bold cursor-pointer border-0 bg-[#1f746f] text-white shadow-[0_5px_13px_rgba(31,116,111,0.2)] hover:bg-[#175f5b]";
+  "w-full min-h-[58px] rounded-xl text-base font-bold cursor-pointer border-0 bg-[#1f746f] text-white shadow-[0_5px_13px_rgba(31,116,111,0.2)] hover:bg-[#175f5b]";
 const SPA_SECONDARY_CLASS =
-  "w-full min-h-[58px] rounded-[12px] text-[1rem] font-bold cursor-pointer border-0 bg-transparent text-[#1f746f]";
+  "w-full min-h-[58px] rounded-xl text-base font-bold cursor-pointer border-0 bg-transparent text-[#1f746f]";
 const SPA_CARD_CLASS =
-  "bg-white border border-[rgba(24,87,82,0.08)] rounded-[20px] shadow-[0_5px_18px_rgba(18,63,60,0.07)]";
+  "bg-white border border-[#185752]/8 rounded-[20px] shadow-[0_5px_18px_rgba(18,63,60,0.07)]";
 const SPA_BACK_CLASS =
-  "border-0 bg-transparent text-[#15221e] text-[2.2rem] leading-none py-0 px-[0.25rem] cursor-pointer";
+  "border-0 bg-transparent text-[#15221e] text-[2.2rem] leading-none py-0 px-1 cursor-pointer";
+const GUEST_STEPPER_BTN =
+  "w-8 h-8 border-0 rounded-lg bg-transparent text-[#1f746f] text-lg font-bold leading-none cursor-pointer flex items-center justify-center transition-colors duration-150 hover:enabled:bg-[#1f746f]/12 disabled:opacity-40 disabled:cursor-not-allowed";
 
 function formatRupiah(value) {
   return `Rp${value.toLocaleString("id-ID")}`;
@@ -34,14 +36,16 @@ export function SpaBooking({ onBack }) {
   const [step, setStep] = useState("booking");
   const [selectedTime, setSelectedTime] = useState("14.00");
   const [selectedDate, setSelectedDate] = useState("2026-10-21");
-  const price = 450000;
+  const [guests, setGuests] = useState(1);
+  const pricePerGuest = 450000;
+  const price = pricePerGuest * guests;
   const tax = Math.round(price * 0.1);
   const serviceFee = Math.round(price * 0.05);
   const total = price + tax + serviceFee;
 
   return (
     <main className="relative w-screen h-dvh overflow-hidden bg-[#f8f9f6]" aria-label="SPA Booking">
-      <div className="absolute top-0 left-0 w-full h-[85px] z-[5] pointer-events-none" aria-hidden="true">
+      <div className="absolute top-0 left-0 w-full h-[85px] z-5 pointer-events-none" aria-hidden="true">
         <svg viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-full block">
           <defs>
             <linearGradient id="spaHeaderTeal" x1="0" y1="0" x2="0" y2="1">
@@ -59,7 +63,7 @@ export function SpaBooking({ onBack }) {
         </div>
       </div>
 
-      <div className="relative z-[2] max-w-[480px] h-full mx-auto pt-[5.4rem] px-[1.25rem] pb-[5.2rem] box-border overflow-y-auto no-scrollbar max-h-short:pt-[4.8rem]">
+      <div className="relative z-2 max-w-[480px] h-full mx-auto pt-[5.4rem] px-5 pb-[5.2rem] box-border overflow-y-auto no-scrollbar max-h-short:pt-[4.8rem]">
         {step === "booking" && (
           <section className="flex flex-col min-h-full animate-spa-fade motion-reduce:animate-none">
             <header className="flex items-center gap-[0.7rem] mb-[1.15rem]">
@@ -72,25 +76,52 @@ export function SpaBooking({ onBack }) {
             </header>
 
             <article
-              className={`${SPA_CARD_CLASS} relative min-h-[430px] mb-[1rem] flex flex-col items-center justify-start text-center pt-[3.25rem] px-[1rem] pb-[1.5rem] box-border max-h-short:min-h-[390px] max-h-short:pt-[2.2rem]`}
+              className={`${SPA_CARD_CLASS} relative min-h-[430px] mb-4 flex flex-col items-center justify-start text-center pt-13 px-4 pb-6 box-border max-h-short:min-h-[390px] max-h-short:pt-[2.2rem]`}
             >
               <div className="w-[220px] h-[210px] flex items-center justify-center mb-[1.1rem]">
                 <img
                   src={spaImage}
                   alt="Perawatan Pijat Bali"
-                  className="w-full h-full object-cover object-center rounded-[6px]"
+                  className="w-full h-full object-cover object-center rounded-md"
                 />
               </div>
               <h2 className="mt-0 mx-0 mb-[0.55rem] text-[#1b4845] text-[1.35rem] font-bold">
                 Pijat Bali
               </h2>
-              <p className="mt-0 mx-0 mb-[0.65rem] text-[#71827c]">60 menit · 1 tamu</p>
+              <p className="mt-0 mx-0 mb-[0.65rem] text-[#71827c]">60 menit · {guests} tamu</p>
               <strong className="text-[#1b7771] text-[1.18rem] font-bold">{formatRupiah(price)}</strong>
+
+              <div className="mt-4 flex items-center gap-3">
+                <span className="text-sm font-semibold text-[#1b4845]">Jumlah tamu</span>
+                <div className="flex items-center gap-1.5 bg-[#eaf1ed] rounded-[10px] py-1 px-1.5">
+                  <button
+                    type="button"
+                    className={GUEST_STEPPER_BTN}
+                    onClick={() => setGuests((current) => Math.max(1, current - 1))}
+                    disabled={guests <= 1}
+                    aria-label="Kurangi jumlah tamu"
+                  >
+                    −
+                  </button>
+                  <span className="min-w-6 text-center text-[0.95rem] font-bold text-[#15221e]" aria-live="polite">
+                    {guests}
+                  </span>
+                  <button
+                    type="button"
+                    className={GUEST_STEPPER_BTN}
+                    onClick={() => setGuests((current) => Math.min(10, current + 1))}
+                    disabled={guests >= 10}
+                    aria-label="Tambah jumlah tamu"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
             </article>
 
             <button
               type="button"
-              className="w-full min-h-[94px] border border-[rgba(24,87,82,0.12)] rounded-[18px] bg-white py-[0.9rem] px-[1.15rem] flex items-center justify-between text-[#15221e] cursor-pointer box-border"
+              className="w-full min-h-[94px] border border-[#185752]/12 rounded-[18px] bg-white py-[0.9rem] px-[1.15rem] flex items-center justify-between text-[#15221e] cursor-pointer box-border"
               onClick={() => setStep("time")}
               aria-label="Pilih tanggal dan waktu reservasi"
             >
@@ -123,11 +154,11 @@ export function SpaBooking({ onBack }) {
               </button>
             </header>
 
-            <h1 className="mt-[1.25rem] mx-0 mb-[1.1rem] text-[#15221e] font-georgia text-[clamp(1.55rem,5vw,2rem)] text-center font-medium">
+            <h1 className="mt-5 mx-0 mb-[1.1rem] text-[#15221e] font-georgia text-[clamp(1.55rem,5vw,2rem)] text-center font-medium">
               Luangkan waktu untuk pulih
             </h1>
 
-            <div className={`${SPA_CARD_CLASS} pt-[1.1rem] px-[1.15rem] pb-[1.25rem]`}>
+            <div className={`${SPA_CARD_CLASS} pt-[1.1rem] px-[1.15rem] pb-5`}>
               <div className="flex justify-between items-center">
                 <label htmlFor="spa-time-date" className="flex items-center gap-[0.55rem] min-w-0">
                   <span className="text-[#1d8b83] font-bold">▣</span>
@@ -149,14 +180,14 @@ export function SpaBooking({ onBack }) {
                   Ubah layanan
                 </button>
               </div>
-              <p className="text-[#71827c] mt-[0.75rem] mx-0 mb-[1rem]">Pilih waktu mulai</p>
+              <p className="text-[#71827c] mt-3 mx-0 mb-4">Pilih waktu mulai</p>
 
               <div className="grid grid-cols-3 gap-[0.7rem]">
                 {TIMES.map((time) => (
                   <button
                     key={time}
                     type="button"
-                    className={`min-h-[58px] border-0 rounded-[12px] text-[1rem] font-bold cursor-pointer ${
+                    className={`min-h-[58px] border-0 rounded-xl text-base font-bold cursor-pointer ${
                       selectedTime === time
                         ? "bg-[#1f746f] text-white shadow-[0_4px_10px_rgba(31,116,111,0.18)]"
                         : "bg-[#f1f5f2] text-[#1b4845]"
@@ -171,7 +202,7 @@ export function SpaBooking({ onBack }) {
 
             <button
               type="button"
-              className={`${SPA_PRIMARY_CLASS} mt-[1.25rem]`}
+              className={`${SPA_PRIMARY_CLASS} mt-5`}
               onClick={() => setStep("summary")}
             >
               Simpan
@@ -187,46 +218,46 @@ export function SpaBooking({ onBack }) {
               </button>
             </header>
 
-            <h1 className="mt-[0.5rem] mx-0 mb-[1.1rem] text-[#15221e] font-georgia text-[clamp(1.55rem,5vw,2rem)] text-left font-medium">
+            <h1 className="mt-2 mx-0 mb-[1.1rem] text-[#15221e] font-georgia text-[clamp(1.55rem,5vw,2rem)] text-left font-medium">
               Konfirmasi
             </h1>
-            <div className={`${SPA_CARD_CLASS} p-[1.25rem] mb-[1.25rem]`}>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+            <div className={`${SPA_CARD_CLASS} p-5 mb-5`}>
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Perawatan</span>
                 <b className="text-[#15221e] text-right font-bold">Pijat Bali · 60 menit</b>
               </div>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Tanggal</span>
                 <b className="text-[#15221e] text-right font-bold">{formatDate(selectedDate)}</b>
               </div>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Waktu</span>
                 <b className="text-[#15221e] text-right font-bold">{selectedTime}–{getEndTime(selectedTime)}</b>
               </div>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Tamu & lokasi</span>
-                <b className="text-[#15221e] text-right font-bold">1 tamu · Spa lantai 1</b>
+                <b className="text-[#15221e] text-right font-bold">{guests} tamu · Spa lantai 1</b>
               </div>
-              <hr className="border-0 border-t border-[#dfe7e3] my-[1rem]" />
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
-                <span className="text-[#71827c]">Harga perawatan</span>
+              <hr className="border-0 border-t border-[#dfe7e3] my-4" />
+              <div className="flex justify-between gap-4 my-[0.65rem]">
+                <span className="text-[#71827c]">Harga perawatan ({guests} tamu)</span>
                 <b className="text-[#15221e] text-right font-bold">{formatRupiah(price)}</b>
               </div>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Pajak (10%)</span>
                 <b className="text-[#15221e] text-right font-bold">{formatRupiah(tax)}</b>
               </div>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Layanan (5%)</span>
                 <b className="text-[#15221e] text-right font-bold">{formatRupiah(serviceFee)}</b>
               </div>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem] border-t border-[#dfe7e3] pt-[0.9rem]">
+              <div className="flex justify-between gap-4 my-[0.65rem] border-t border-[#dfe7e3] pt-[0.9rem]">
                 <span className="text-[#71827c]">Total ilustratif</span>
                 <b className="text-[#1f746f] text-[1.15rem] text-right font-bold">{formatRupiah(total)}</b>
               </div>
             </div>
 
-            <button type="button" className={`${SPA_PRIMARY_CLASS} mb-[0.5rem]`} onClick={() => setStep("confirmed")}>
+            <button type="button" className={`${SPA_PRIMARY_CLASS} mb-2`} onClick={() => setStep("confirmed")}>
               ✓ Konfirmasi reservasi
             </button>
             <button type="button" className={SPA_SECONDARY_CLASS} onClick={() => setStep("time")}>
@@ -236,33 +267,33 @@ export function SpaBooking({ onBack }) {
         )}
 
         {step === "confirmed" && (
-          <section className="flex flex-col min-h-full items-center justify-center text-center pt-[0.25rem] pb-[1.5rem] animate-spa-fade motion-reduce:animate-none">
+          <section className="flex flex-col min-h-full items-center justify-center text-center pt-1 pb-6 animate-spa-fade motion-reduce:animate-none">
             <div className="w-[78px] h-[78px] rounded-full bg-[#1f746f] text-white flex items-center justify-center text-[2.2rem] mb-[1.35rem]">
               ✓
             </div>
             <small className="text-[#1f746f] font-bold">SIMULASI · SP-208-006</small>
-            <h1 className="mt-[1.5rem] mx-0 mb-[0.8rem] text-[#163f3b] font-georgia text-[2rem] font-bold">
+            <h1 className="mt-6 mx-0 mb-[0.8rem] text-[#163f3b] font-georgia text-[2rem] font-bold">
               Reservasi terkonfirmasi*
             </h1>
 
-            <div className="w-full max-w-[430px] mt-0 mx-0 mb-[1.5rem] py-[1.1rem] px-[1.25rem] border border-[rgba(31,116,111,0.1)] rounded-[18px] bg-white shadow-[0_5px_18px_rgba(18,63,60,0.07)] text-left">
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+            <div className="w-full max-w-[430px] mt-0 mx-0 mb-6 py-[1.1rem] px-5 border border-[#1f746f]/10 rounded-[18px] bg-white shadow-[0_5px_18px_rgba(18,63,60,0.07)] text-left">
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Perawatan</span>
                 <strong className="text-[#15221e] text-right font-bold">Pijat Bali · 60 menit</strong>
               </div>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Tanggal</span>
                 <strong className="text-[#15221e] text-right font-bold">{formatDate(selectedDate)}</strong>
               </div>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Waktu</span>
                 <strong className="text-[#15221e] text-right font-bold">{selectedTime}–{getEndTime(selectedTime)}</strong>
               </div>
-              <div className="flex justify-between gap-[1rem] my-[0.65rem]">
+              <div className="flex justify-between gap-4 my-[0.65rem]">
                 <span className="text-[#71827c]">Tamu & lokasi</span>
-                <strong className="text-[#15221e] text-right font-bold">1 tamu · Spa lantai 1</strong>
+                <strong className="text-[#15221e] text-right font-bold">{guests} tamu · Spa lantai 1</strong>
               </div>
-              <div className="flex justify-between gap-[1rem] mb-[0.65rem] border-t border-[#dfe7e3] mt-[0.9rem] pt-[0.9rem]">
+              <div className="flex justify-between gap-4 mb-[0.65rem] border-t border-[#dfe7e3] mt-[0.9rem] pt-[0.9rem]">
                 <span className="text-[#71827c]">Total ilustratif</span>
                 <strong className="text-[#15221e] text-right font-bold">{formatRupiah(total)}</strong>
               </div>
@@ -275,7 +306,7 @@ export function SpaBooking({ onBack }) {
         )}
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full h-[85px] z-[5] pointer-events-none" aria-hidden="true">
+      <div className="absolute bottom-0 left-0 w-full h-[85px] z-5 pointer-events-none" aria-hidden="true">
         <svg viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-full block">
           <path d="M 0 12 Q 500 42 1000 12 L 1000 100 L 0 100 Z" fill="#17544f" />
         </svg>

@@ -5,13 +5,13 @@ import cardIconMic from "../../assets/logo mic gestura.png";
 import cardIconGesture from "../../assets/Logo Gesture Gestura.png";
 
 const SPLASH_VIEW_BASE =
-  "absolute inset-0 w-full h-full box-border overflow-hidden transition-[opacity,transform] duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] will-change-[opacity,transform] motion-reduce:transition-none";
-const SPLASH_VIEW_ACTIVE = "opacity-100 scale-100 pointer-events-auto z-[2]";
-const SPLASH_VIEW_INACTIVE = "opacity-0 scale-[0.985] pointer-events-none z-[1]";
+  "absolute inset-0 w-full h-full box-border overflow-hidden transition-[opacity,transform] duration-800 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-[opacity,transform] motion-reduce:transition-none";
+const SPLASH_VIEW_ACTIVE = "opacity-100 scale-100 pointer-events-auto z-2";
+const SPLASH_VIEW_INACTIVE = "opacity-0 scale-100 pointer-events-none z-1";
 const ONBOARDING_CARD_BASE =
-  "group flex items-center gap-[1.35rem] bg-transparent border-0 py-[0.5rem] px-[0.25rem] m-0 text-left cursor-pointer rounded-[20px] transition-[transform,opacity] duration-200 ease-in-out select-none [-webkit-tap-highlight-color:transparent] hover:-translate-y-[2px] active:translate-y-0 focus-visible:outline-2 focus-visible:outline-[#1f746f] focus-visible:outline-offset-[6px] motion-reduce:transition-none";
+  "group flex items-center gap-[1.35rem] bg-transparent border-0 py-2 px-1 m-0 text-left cursor-pointer rounded-[20px] transition-[transform,opacity] duration-200 ease-in-out select-none [-webkit-tap-highlight-color:transparent] hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-[#1f746f] focus-visible:outline-offset-[6px] motion-reduce:transition-none";
 const ONBOARDING_ICON_BOX_BASE =
-  "w-[82px] h-[82px] min-w-[82px] rounded-[18px] overflow-hidden flex items-center justify-center bg-[#a4b2ab] transition-[box-shadow,transform] duration-[250ms] ease-in-out group-hover:scale-[1.02] motion-reduce:transition-none";
+  "w-[82px] h-[82px] min-w-[82px] rounded-[18px] overflow-hidden flex items-center justify-center bg-[#a4b2ab] transition-[box-shadow,transform] duration-250 ease-in-out group-hover:scale-102 motion-reduce:transition-none";
 
 /**
  * SplashScreen Component
@@ -37,7 +37,8 @@ export function SplashScreen({
   const timerAutoRef = useRef(null);
   const timerStepRef = useRef(null);
 
-  const currentStep = controlledStep !== undefined ? controlledStep : internalStep;
+  const currentStep =
+    controlledStep !== undefined ? controlledStep : internalStep;
 
   // Fungsi pengiriman selesainya splash screen (hanya dipanggil 1 kali)
   const triggerComplete = (method) => {
@@ -55,7 +56,12 @@ export function SplashScreen({
 
   // 1. Transisi dari Tampilan 1 ke Tampilan 2 setelah 800 ms
   useEffect(() => {
-    if (!autoTransition || controlledStep !== undefined || hasCompletedRef.current) return;
+    if (
+      !autoTransition ||
+      controlledStep !== undefined ||
+      hasCompletedRef.current
+    )
+      return;
 
     timerStepRef.current = setTimeout(() => {
       setInternalStep(2);
@@ -98,7 +104,7 @@ export function SplashScreen({
 
   return (
     <section
-      className="relative w-screen h-dvh m-0 p-0 overflow-hidden bg-white box-border"
+      className="relative w-screen h-dvh m-0 p-0 overflow-hidden bg-transparent box-border"
       aria-label="Gestura Splash Screen"
     >
       {/* ====================================================================
@@ -114,7 +120,7 @@ export function SplashScreen({
         <img
           src={rectangleLeft}
           alt=""
-          className="absolute top-0 bottom-0 left-0 h-full w-auto pointer-events-none select-none [-webkit-user-drag:none] z-[1]"
+          className="absolute top-0 bottom-0 left-0 h-full w-auto pointer-events-none select-none [-webkit-user-drag:none] z-1"
           aria-hidden="true"
         />
 
@@ -122,12 +128,12 @@ export function SplashScreen({
         <img
           src={rectangleRight}
           alt=""
-          className="absolute top-0 bottom-0 right-0 h-full w-auto pointer-events-none select-none [-webkit-user-drag:none] z-[1]"
+          className="absolute top-0 bottom-0 right-0 h-full w-auto pointer-events-none select-none [-webkit-user-drag:none] z-1"
           aria-hidden="true"
         />
 
         {/* Central branding content */}
-        <div className="relative z-[2] flex flex-col items-center text-center mt-[-6vh] px-[1.5rem] max-w-[min(90vw,420px)] w-full box-border">
+        <div className="relative z-2 flex flex-col items-center text-center mt-[-6vh] px-6 max-w-[min(90vw,420px)] w-full box-border">
           <div className="w-full min-h-[clamp(170px,38vw,260px)] flex justify-center items-center">
             <img
               src="/Bunga%20kamboja%20GESTURA.png"
@@ -136,7 +142,7 @@ export function SplashScreen({
             />
           </div>
 
-          <div className="mt-[1.5rem] flex flex-col items-center">
+          <div className="mt-6 flex flex-col items-center">
             <h1 className="m-0 font-serif-brand text-[clamp(2rem,5.8vw,2.7rem)] font-medium tracking-[0.12em] text-black leading-[1.15] uppercase">
               GESTURA
             </h1>
@@ -157,7 +163,10 @@ export function SplashScreen({
         aria-hidden={currentStep !== 2}
       >
         {/* Top curved dark teal header bar */}
-        <div className="absolute top-0 left-0 right-0 w-full h-[80px] z-[3] pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute top-0 left-0 right-0 w-full h-[80px] z-3 pointer-events-none"
+          aria-hidden="true"
+        >
           <svg
             viewBox="0 0 1000 100"
             preserveAspectRatio="none"
@@ -184,9 +193,9 @@ export function SplashScreen({
         </div>
 
         {/* Onboarding center body content */}
-        <div className="relative z-[2] w-full max-w-[500px] h-full flex flex-col justify-center pt-[5rem] px-[1.75rem] pb-[4.5rem] box-border">
-          <header className="mb-[2.25rem] text-left">
-            <h2 className="mt-0 mx-0 mb-[0.5rem] font-serif-brand text-[clamp(1.75rem,5vw,2.2rem)] font-semibold text-[#14221e] leading-[1.25]">
+        <div className="relative z-2 w-full max-w-[500px] h-full flex flex-col justify-center pt-20 px-7 pb-18 box-border">
+          <header className="mb-9 text-left">
+            <h2 className="mt-0 mx-0 mb-2 font-serif-brand text-[clamp(1.75rem,5vw,2.2rem)] font-semibold text-[#14221e] leading-[1.25]">
               Bagaimana kami membantu?
             </h2>
             <p className="m-0 font-sans-system text-[clamp(0.92rem,2.5vw,1.05rem)] font-normal text-[#566861] leading-[1.45]">
@@ -196,7 +205,7 @@ export function SplashScreen({
 
           {/* Assistance Selection Cards */}
           <div
-            className="flex flex-col gap-[1.35rem] mb-[2.75rem] w-full"
+            className="flex flex-col gap-[1.35rem] mb-11 w-full"
             role="radiogroup"
             aria-label="Pilihan metode bantuan"
           >
@@ -273,7 +282,10 @@ export function SplashScreen({
         </div>
 
         {/* Bottom curved dark teal footer bar */}
-        <div className="absolute bottom-0 left-0 right-0 w-full h-[80px] z-[3] pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute bottom-0 left-0 right-0 w-full h-[80px] z-3 pointer-events-none"
+          aria-hidden="true"
+        >
           <svg
             viewBox="0 0 1000 100"
             preserveAspectRatio="none"
@@ -302,21 +314,25 @@ export function SplashScreen({
 
       {/* Navigasi indikator titik */}
       <nav
-        className="absolute bottom-[12px] left-1/2 -translate-x-1/2 flex items-center gap-[8px] z-[10] py-[4px] px-[8px] bg-black/15 rounded-[12px] backdrop-blur-[4px]"
+        className="absolute bottom-[12px] left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 py-1 px-2 bg-black/15 rounded-xl backdrop-blur-[4px]"
         aria-label="Pindah tampilan splash screen"
       >
         <button
           type="button"
-          className={`h-[8px] p-0 m-0 border-0 cursor-pointer transition-all duration-300 ease-in-out ${
-            currentStep === 1 ? "w-[22px] rounded-[4px] bg-white" : "w-[8px] rounded-full bg-white/50"
+          className={`h-2 p-0 m-0 border-0 cursor-pointer transition-all duration-300 ease-in-out ${
+            currentStep === 1
+              ? "w-[22px] rounded-sm bg-white"
+              : "w-2 rounded-full bg-white/50"
           }`}
           onClick={() => setInternalStep(1)}
           aria-label="Tampilan 1: Gestura Splash"
         />
         <button
           type="button"
-          className={`h-[8px] p-0 m-0 border-0 cursor-pointer transition-all duration-300 ease-in-out ${
-            currentStep === 2 ? "w-[22px] rounded-[4px] bg-white" : "w-[8px] rounded-full bg-white/50"
+          className={`h-2 p-0 m-0 border-0 cursor-pointer transition-all duration-300 ease-in-out ${
+            currentStep === 2
+              ? "w-[22px] rounded-sm bg-white"
+              : "w-2 rounded-full bg-white/50"
           }`}
           onClick={() => setInternalStep(2)}
           aria-label="Tampilan 2: Bagaimana Kami Membantu"

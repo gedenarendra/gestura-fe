@@ -5,7 +5,7 @@ export function LightingScreen({ onBack }) {
 
   return (
     <main className="relative w-screen h-dvh overflow-hidden bg-[#f8f9f6]" aria-label="Lighting Control">
-      <div className="absolute top-0 left-0 w-full h-[85px] z-[5] pointer-events-none" aria-hidden="true">
+      <div className="absolute top-0 left-0 w-full h-[85px] z-5 pointer-events-none" aria-hidden="true">
         <svg className="w-full h-full block" viewBox="0 0 1000 100" preserveAspectRatio="none">
           <defs>
             <linearGradient id="lightingHeaderTeal" x1="0" y1="0" x2="0" y2="1">
@@ -18,11 +18,11 @@ export function LightingScreen({ onBack }) {
         </svg>
       </div>
 
-      <div className="relative z-[2] w-full max-w-[480px] h-full mx-auto box-border pt-[5.5rem] px-[1.25rem] pb-[5.2rem] overflow-y-auto no-scrollbar max-h-short:pt-[4.8rem]">
+      <div className="relative z-2 w-full max-w-[480px] h-full mx-auto box-border pt-22 px-5 pb-[5.2rem] overflow-y-auto no-scrollbar max-h-short:pt-[4.8rem]">
         <header className="flex items-center gap-[0.7rem] mb-[1.15rem]">
           <button
             type="button"
-            className="border-0 bg-transparent text-[#142520] text-[2.15rem] leading-none py-0 px-[0.25rem] cursor-pointer"
+            className="border-0 bg-transparent text-[#142520] text-[2.15rem] leading-none py-0 px-1 cursor-pointer"
             onClick={onBack}
             aria-label="Kembali ke menu utama"
           >
@@ -34,13 +34,13 @@ export function LightingScreen({ onBack }) {
         </header>
 
         <section className="min-h-[calc(100%-62px)] flex flex-col items-center">
-          <h2 className="mt-[0.85rem] mx-0 mb-[2.15rem] font-georgia text-[clamp(1.25rem,4vw,1.5rem)] font-medium text-[#142520] text-center max-h-short:mt-[0.35rem] max-h-short:mb-[1.25rem]">
+          <h2 className="mt-[0.85rem] mx-0 mb-[2.15rem] font-georgia text-[clamp(1.25rem,4vw,1.5rem)] font-medium text-[#142520] text-center max-h-short:mt-[0.35rem] max-h-short:mb-5">
             Lamp Station
           </h2>
 
           <button
             type="button"
-            className={`w-[340px] max-w-[calc(100%-16px)] h-[272px] border border-[rgba(31,116,111,0.07)] rounded-[12px] text-[#171717] flex items-center justify-center cursor-pointer transition-[background,color,transform,box-shadow] duration-[250ms] ease-in-out hover:-translate-y-[2px] max-w-390:h-[250px] max-h-short:h-[220px] motion-reduce:transition-none ${
+            className={`w-[340px] max-w-[calc(100%-16px)] h-[272px] border border-[#1f746f]/7 rounded-xl text-[#171717] flex items-center justify-center cursor-pointer transition-[background,color,transform,box-shadow] duration-250 ease-in-out hover:-translate-y-0.5 max-w-390:h-[250px] max-h-short:h-[220px] motion-reduce:transition-none ${
               isOn
                 ? "bg-[#ffd400] shadow-[0_9px_18px_rgba(90,79,0,0.16)]"
                 : "bg-white shadow-[0_7px_16px_rgba(18,63,60,0.12)]"
@@ -66,19 +66,19 @@ export function LightingScreen({ onBack }) {
 
           <button
             type="button"
-            className="w-[340px] max-w-[calc(100%-16px)] h-[70px] mt-[4.25rem] border-0 rounded-full bg-transparent p-0 cursor-pointer max-w-390:mt-[3.25rem] max-h-short:mt-[2.25rem] max-h-short:h-[62px]"
+            className="w-[340px] max-w-[calc(100%-16px)] h-[70px] mt-17 border-0 rounded-full bg-transparent p-0 cursor-pointer max-w-390:mt-13 max-h-short:mt-9 max-h-short:h-[62px]"
             onClick={() => setIsOn((current) => !current)}
             aria-pressed={isOn}
             aria-label={isOn ? "Matikan lampu" : "Nyalakan lampu"}
           >
             <span
-              className={`relative block w-full h-full rounded-full shadow-[inset_0_1px_2px_rgba(20,37,32,0.03)] transition-[background] duration-[250ms] ease-in-out motion-reduce:transition-none ${
+              className={`relative block w-full h-full rounded-full shadow-[inset_0_1px_2px_rgba(20,37,32,0.03)] transition-colors duration-250 ease-in-out motion-reduce:transition-none ${
                 isOn ? "bg-[#ffd400]" : "bg-[#e2e6ec]"
               }`}
               aria-hidden="true"
             >
               <span
-                className={`absolute top-[12px] w-[46px] h-[46px] rounded-full bg-white shadow-[0_3px_9px_rgba(18,63,60,0.12)] transition-[left] duration-[250ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] max-h-short:top-[9px] max-h-short:w-[44px] max-h-short:h-[44px] motion-reduce:transition-none ${
+                className={`absolute top-[12px] w-[46px] h-[46px] rounded-full bg-white shadow-[0_3px_9px_rgba(18,63,60,0.12)] transition-[left] duration-250 ease-[cubic-bezier(0.34,1.56,0.64,1)] max-h-short:top-[9px] max-h-short:w-[44px] max-h-short:h-[44px] motion-reduce:transition-none ${
                   isOn
                     ? "left-[calc(100%-58px)] max-h-short:left-[calc(100%-53px)]"
                     : "left-[12px]"
@@ -89,7 +89,7 @@ export function LightingScreen({ onBack }) {
 
           <button
             type="button"
-            className="w-full min-h-[58px] mt-auto mb-0 border-0 rounded-[12px] bg-[#1f746f] text-white text-[1rem] font-bold cursor-pointer shadow-[0_5px_14px_rgba(31,116,111,0.18)]"
+            className="w-full min-h-[58px] mt-auto mb-0 border-0 rounded-xl bg-[#1f746f] text-white text-base font-bold cursor-pointer shadow-[0_5px_14px_rgba(31,116,111,0.18)]"
             onClick={onBack}
           >
             ⌂ Kembali ke menu utama
@@ -97,7 +97,7 @@ export function LightingScreen({ onBack }) {
         </section>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full h-[85px] z-[5] pointer-events-none" aria-hidden="true">
+      <div className="absolute bottom-0 left-0 w-full h-[85px] z-5 pointer-events-none" aria-hidden="true">
         <svg className="w-full h-full block" viewBox="0 0 1000 100" preserveAspectRatio="none">
           <path d="M 0 12 Q 500 42 1000 12 L 1000 100 L 0 100 Z" fill="#17544f" />
         </svg>

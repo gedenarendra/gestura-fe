@@ -55,15 +55,19 @@ const INITIAL_HK_SERVICES = [
 ];
 
 const ROOM_BACK_BTN =
-  "bg-transparent border-0 text-[1.65rem] leading-none text-[#14221e] cursor-pointer p-[4px] m-0 rounded-[8px] flex items-center justify-center transition-[transform,opacity] duration-200 ease-in-out hover:-translate-x-[2px] hover:opacity-80";
+  "bg-transparent border-0 text-[1.65rem] leading-none text-[#14221e] cursor-pointer p-1 m-0 rounded-lg flex items-center justify-center transition-[transform,opacity] duration-200 ease-in-out hover:-translate-x-0.5 hover:opacity-80";
 const ROOM_MAIN_TITLE =
   "m-0 font-serif-brand text-[clamp(1.45rem,4.5vw,1.85rem)] font-medium text-[#14221e] leading-[1.15]";
 const STEPPER_BTN =
-  "bg-transparent border-0 text-[1.15rem] leading-none text-[#185752] cursor-pointer py-[2px] px-[6px] font-semibold rounded-[6px] transition-[background] duration-150 ease-in-out hover:bg-[rgba(24,87,82,0.12)]";
+  "bg-transparent border-0 text-[1.15rem] leading-none text-[#185752] cursor-pointer py-0.5 px-1.5 font-semibold rounded-md transition-colors duration-150 ease-in-out hover:bg-[#185752]/12";
 const BTN_PRIMARY_ACTION =
-  "bg-[#185752] text-white border-0 rounded-[14px] p-[0.95rem] text-[0.95rem] font-semibold cursor-pointer shadow-[0_4px_14px_rgba(24,87,82,0.25)] transition-[transform,background-color] duration-200 ease-in-out w-full hover:enabled:bg-[#123f3c] hover:enabled:-translate-y-[2px] disabled:opacity-50 disabled:cursor-not-allowed";
+  "bg-[#185752] text-white border-0 rounded-[14px] p-[0.95rem] text-[0.95rem] font-semibold cursor-pointer shadow-[0_4px_14px_rgba(24,87,82,0.25)] transition-[transform,background-color] duration-200 ease-in-out w-full hover:enabled:bg-[#123f3c] hover:enabled:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed";
 const BTN_ACTION_OUTLINE =
-  "bg-transparent text-[#185752] border border-[rgba(24,87,82,0.25)] rounded-[12px] p-[0.75rem] text-[0.88rem] font-semibold cursor-pointer transition-all duration-200 ease-in-out w-full hover:bg-[rgba(24,87,82,0.08)]";
+  "bg-transparent text-[#185752] border border-[#185752]/25 rounded-xl p-3 text-[0.88rem] font-semibold cursor-pointer transition-all duration-200 ease-in-out w-full hover:bg-[#185752]/8";
+const CHOICE_CARD_CLASS =
+  "group h-[clamp(248px,57vw,270px)] min-w-0 bg-white hover:bg-[#185752] rounded-[18px] overflow-hidden border-0 p-0 m-0 cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] flex flex-col transition-[transform,box-shadow,background-color] duration-250 ease-[cubic-bezier(0.34,1.56,0.64,1)] outline-none text-left hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.09)] max-w-390:h-[238px]";
+const CHOICE_CARD_TITLE_CLASS =
+  "max-w-[175px] m-0 font-serif-brand text-[clamp(0.95rem,3vw,1.12rem)] font-medium text-[#14221e] group-hover:text-white transition-colors duration-250 leading-[1.18] text-balance max-w-390:text-[0.92rem]";
 
 export function RoomScreen({ onBack }) {
   // Subview alur: "selection" | "dining" | "dining-review" | "housekeeping" | "housekeeping-review"
@@ -111,9 +115,15 @@ export function RoomScreen({ onBack }) {
   };
 
   return (
-    <main className="relative w-screen h-dvh m-0 p-0 overflow-hidden bg-[#e8f1ec] box-border" aria-label="Room Service & Amenities Screen">
+    <main
+      className="relative w-screen h-dvh m-0 p-0 overflow-hidden bg-[#e8f1ec] box-border"
+      aria-label="Room Service & Amenities Screen"
+    >
       {/* Top curved dark teal header with GESTURA branding */}
-      <div className="absolute top-0 left-0 right-0 w-full h-[85px] z-[5] pointer-events-none" aria-hidden="true">
+      <div
+        className="absolute top-0 left-0 right-0 w-full h-21.25 z-5 pointer-events-none"
+        aria-hidden="true"
+      >
         <svg
           viewBox="0 0 1000 100"
           preserveAspectRatio="none"
@@ -140,13 +150,13 @@ export function RoomScreen({ onBack }) {
       </div>
 
       {/* Main Responsive Container */}
-      <div className="relative z-[2] w-full max-w-[480px] h-full mx-auto box-border pt-[5.5rem] px-[1.25rem] pb-[4.5rem] overflow-y-auto [-webkit-overflow-scrolling:touch] no-scrollbar max-w-390:px-[1rem]">
+      <div className="relative z-2 w-full max-w-120 h-full mx-auto box-border pt-22 px-5 pb-18 overflow-y-auto [-webkit-overflow-scrolling:touch] no-scrollbar max-w-390:px-4">
         {/* ====================================================================
             VIEW 1: Service Selection (In-Room Dining vs Housekeeping)
             ==================================================================== */}
         {subView === "selection" && (
           <section className="flex flex-col w-full animate-pane-fade-in">
-            <header className="flex items-center gap-[0.85rem] mb-[1.25rem] w-full">
+            <header className="flex items-center gap-[0.85rem] mb-5 w-full">
               <button
                 type="button"
                 className={ROOM_BACK_BTN}
@@ -157,48 +167,46 @@ export function RoomScreen({ onBack }) {
               </button>
               <div className="flex flex-col">
                 <h1 className={ROOM_MAIN_TITLE}>Room Service</h1>
-                <p className="mt-[0.25rem] mx-0 mb-0 font-sans-system text-[0.88rem] text-[#5e726b]">
+                <p className="mt-1 mx-0 mb-0 font-sans-system text-[0.88rem] text-[#5e726b]">
                   Select service
                 </p>
               </div>
             </header>
 
-            <div className="grid grid-cols-[repeat(2,minmax(0,1fr))] gap-[clamp(0.85rem,3vw,1rem)] w-full mt-[0.5rem] max-w-390:gap-[0.75rem]">
+            <div className="grid grid-cols-2 gap-[clamp(0.85rem,3vw,1rem)] w-full mt-2 max-w-390:gap-3">
               {/* Card 1: In-Room Dining */}
               <button
                 type="button"
-                className="group h-[clamp(248px,57vw,270px)] min-w-0 bg-white rounded-[18px] overflow-hidden border-0 p-0 m-0 cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] flex flex-col transition-[transform,box-shadow] duration-[250ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] outline-none text-left hover:-translate-y-[4px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.09)] max-w-390:h-[238px]"
+                className={CHOICE_CARD_CLASS}
                 onClick={() => setSubView("dining")}
               >
                 <div className="w-full h-[calc(100%-72px)] flex-auto overflow-hidden bg-[#f1f5f9]">
                   <img
                     src={roomDiningCard}
                     alt="In-Room Dining"
-                    className="w-full h-full object-cover object-center block transition-transform duration-[400ms] ease-in-out group-hover:scale-[1.05]"
+                    className="w-full h-full object-cover object-center block transition-transform duration-400 ease-in-out group-hover:scale-105"
                   />
                 </div>
-                <div className="h-[72px] min-h-[72px] py-[0.75rem] px-[0.55rem] text-center flex items-center justify-center box-border max-w-390:h-[68px] max-w-390:min-h-[68px]">
-                  <h2 className="max-w-[175px] m-0 font-serif-brand text-[clamp(0.95rem,3vw,1.12rem)] font-medium text-[#14221e] leading-[1.18] [text-wrap:balance] max-w-390:text-[0.92rem]">
-                    In-Room Dining
-                  </h2>
+                <div className="h-[8 min-h-18 px py-3 px-[0.55rem] text-center flex items-center justify-center box-border max-w-390:h-17 max-w-390:min-h-17">
+                  <h2 className={CHOICE_CARD_TITLE_CLASS}>In-Room Dining</h2>
                 </div>
               </button>
 
               {/* Card 2: Housekeeping & Amenities */}
               <button
                 type="button"
-                className="group h-[clamp(248px,57vw,270px)] min-w-0 bg-[#185752] rounded-[18px] overflow-hidden border-0 p-0 m-0 cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] flex flex-col transition-[transform,box-shadow] duration-[250ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] outline-none text-left hover:-translate-y-[4px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.09)] max-w-390:h-[238px]"
+                className={CHOICE_CARD_CLASS}
                 onClick={() => setSubView("housekeeping")}
               >
                 <div className="w-full h-[calc(100%-72px)] flex-auto overflow-hidden bg-[#f1f5f9]">
                   <img
                     src={roomHkCard}
                     alt="Housekeeping & Amenities"
-                    className="w-full h-full object-cover object-[58%_center] block transition-transform duration-[400ms] ease-in-out group-hover:scale-[1.05]"
+                    className="w-full h-full object-cover object-[58%_center] block transition-transform duration-400 ease-in-out group-hover:scale-105"
                   />
                 </div>
-                <div className="h-[72px] min-h-[72px] py-[0.75rem] px-[0.55rem] text-center flex items-center justify-center box-border max-w-390:h-[68px] max-w-390:min-h-[68px]">
-                  <h2 className="max-w-[175px] m-0 font-serif-brand text-[clamp(0.95rem,3vw,1.12rem)] font-medium text-white leading-[1.18] [text-wrap:balance] max-w-390:text-[0.92rem]">
+                <div className="h-18 min-h-18 py-3 px-[0.55rem] text-center flex items-center justify-center box-border max-w-390:h-17 max-w-390:min-h-17">
+                  <h2 className={CHOICE_CARD_TITLE_CLASS}>
                     Housekeeping & Amenities
                   </h2>
                 </div>
@@ -212,7 +220,7 @@ export function RoomScreen({ onBack }) {
             ==================================================================== */}
         {subView === "dining" && (
           <section className="flex flex-col w-full animate-pane-fade-in">
-            <header className="flex items-center gap-[0.85rem] mb-[1.25rem] w-full">
+            <header className="flex items-center gap-[0.85rem] mb-5 w-full">
               <button
                 type="button"
                 className={ROOM_BACK_BTN}
@@ -225,7 +233,7 @@ export function RoomScreen({ onBack }) {
             </header>
 
             {/* Hero Banner Image */}
-            <div className="w-full h-[145px] rounded-[18px] overflow-hidden mb-[1.15rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] bg-[#cbd5e1]">
+            <div className="w-full h-36.25 rounded-[18px] overflow-hidden mb-[1.15rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] bg-[#cbd5e1]">
               <img
                 src={diningBanner}
                 alt="In-Room Dining Feast"
@@ -234,17 +242,20 @@ export function RoomScreen({ onBack }) {
             </div>
 
             {/* Category Tabs */}
-            <div className="flex gap-[0.5rem] overflow-x-auto mb-[1.25rem] pb-[2px] no-scrollbar" role="tablist">
+            <div
+              className="flex gap-2 overflow-x-auto mb-5 pb-0.5 no-scrollbar"
+              role="tablist"
+            >
               {["Morning Energize", "Local Signatures", "Western Classics"].map(
                 (cat) => (
                   <button
                     key={cat}
                     type="button"
                     role="tab"
-                    className={`rounded-[20px] py-[0.45rem] px-[1rem] text-[0.8rem] font-medium whitespace-nowrap cursor-pointer transition-all duration-200 ease-in-out border ${
+                    className={`rounded-[20px] py-[0.45rem] px-4 text-[0.8rem] font-medium whitespace-nowrap cursor-pointer transition-all duration-200 ease-in-out border ${
                       diningCategory === cat
                         ? "bg-[#185752] text-white border-[#185752] shadow-[0_2px_8px_rgba(24,87,82,0.25)]"
-                        : "bg-white text-[#334155] border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.03)]"
+                        : "bg-white text-[#334155] border-black/6 shadow-[0_1px_3px_rgba(0,0,0,0.03)]"
                     }`}
                     onClick={() => setDiningCategory(cat)}
                     aria-selected={diningCategory === cat}
@@ -256,29 +267,29 @@ export function RoomScreen({ onBack }) {
             </div>
 
             {/* Menu Items List */}
-            <div className="flex flex-col gap-[0.85rem] mb-[1.5rem]">
+            <div className="flex flex-col gap-[0.85rem] mb-6">
               {diningItems.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white rounded-[18px] p-[0.85rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] flex items-center gap-[0.85rem] transition-transform duration-200 ease-in-out hover:-translate-y-[1px]"
+                  className="bg-white rounded-[18px] p-[0.85rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] flex items-center gap-[0.85rem] transition-transform duration-200 ease-in-out hover:-translate-y-px"
                 >
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-[84px] h-[84px] min-w-[84px] rounded-[14px] object-cover"
+                    className="w-21 h-21 min-w-21 rounded-[14px] object-cover"
                   />
                   <div className="flex-1 flex flex-col gap-[0.2rem] overflow-hidden">
-                    <h3 className="m-0 font-sans-system text-[0.98rem] font-semibold text-[#14221e] leading-[1.25]">
+                    <h3 className="m-0 font-sans-system text-[0.98rem] font-semibold text-[#14221e] leading-tight">
                       {item.title}
                     </h3>
                     <p className="m-0 font-sans-system text-[0.78rem] text-[#5e726b] leading-[1.35]">
                       {item.description}
                     </p>
-                    <span className="font-sans-system text-[0.92rem] font-semibold text-[#185752] mt-[0.25rem]">
+                    <span className="font-sans-system text-[0.92rem] font-semibold text-[#185752] mt-1">
                       {formatRupiah(item.price)}
                     </span>
                   </div>
-                  <div className="flex items-center gap-[0.4rem] bg-[#eaf1ed] rounded-[10px] py-[3px] px-[6px]">
+                  <div className="flex items-center gap-[0.4rem] bg-[#eaf1ed] rounded-[10px] py-0.75 px-1.5">
                     <button
                       type="button"
                       className={STEPPER_BTN}
@@ -287,7 +298,7 @@ export function RoomScreen({ onBack }) {
                     >
                       –
                     </button>
-                    <span className="font-sans-system text-[0.92rem] font-semibold text-[#14221e] min-w-[16px] text-center">
+                    <span className="font-sans-system text-[0.92rem] font-semibold text-[#14221e] min-w-4 text-center">
                       {item.quantity}
                     </span>
                     <button
@@ -304,12 +315,14 @@ export function RoomScreen({ onBack }) {
             </div>
 
             {/* Bottom Checkout Action Bar */}
-            <div className="flex flex-col gap-[0.65rem] mt-[0.5rem] pb-[1rem]">
-              <div className="flex justify-between items-center pt-0 px-[0.25rem] pb-[0.5rem]">
+            <div className="flex flex-col gap-[0.65rem] mt-2 pb-4">
+              <div className="flex justify-between items-center pt-0 px-1 pb-2">
                 <span className="text-[0.88rem] text-[#14221e]">
                   {totalItemCount} item · antar ke kamar 208
                 </span>
-                <span className="text-[1.05rem] font-bold text-[#185752]">{formatRupiah(subtotal)}</span>
+                <span className="text-[1.05rem] font-bold text-[#185752]">
+                  {formatRupiah(subtotal)}
+                </span>
               </div>
               <button
                 type="button"
@@ -321,7 +334,7 @@ export function RoomScreen({ onBack }) {
               </button>
               <button
                 type="button"
-                className="bg-transparent text-[#185752] border border-[rgba(24,87,82,0.25)] rounded-[14px] p-[0.85rem] text-[0.92rem] font-semibold cursor-pointer transition-all duration-200 ease-in-out w-full hover:bg-[rgba(24,87,82,0.06)]"
+                className="bg-transparent text-[#185752] border border-[#185752]/25 rounded-[14px] p-[0.85rem] text-[0.92rem] font-semibold cursor-pointer transition-all duration-200 ease-in-out w-full hover:bg-[#185752]/6"
                 onClick={() => setSubView("selection")}
               >
                 Kembali ke menu utama
@@ -335,7 +348,7 @@ export function RoomScreen({ onBack }) {
             ==================================================================== */}
         {subView === "dining-review" && (
           <section className="flex flex-col w-full animate-pane-fade-in">
-            <header className="flex items-center gap-[0.85rem] mb-[1.25rem] w-full">
+            <header className="flex items-center gap-[0.85rem] mb-5 w-full">
               <button
                 type="button"
                 className={ROOM_BACK_BTN}
@@ -351,14 +364,19 @@ export function RoomScreen({ onBack }) {
             <div className="bg-white rounded-[20px] p-[1.35rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] mb-[1.15rem]">
               <div className="flex items-center gap-[0.4rem] text-[0.9rem] font-semibold text-[#14221e] mb-[1.15rem]">
                 <span>📖 Antar ke kamar 208</span>
-                <span className="text-[#5e726b] font-normal text-[0.82rem]">· 30–40 menit*</span>
+                <span className="text-[#5e726b] font-normal text-[0.82rem]">
+                  · 30–40 menit*
+                </span>
               </div>
 
-              <div className="flex flex-col gap-[0.75rem] mb-[1rem]">
+              <div className="flex flex-col gap-3 mb-4">
                 {diningItems
                   .filter((it) => it.quantity > 0)
                   .map((it) => (
-                    <div key={it.id} className="flex justify-between text-[0.92rem] text-[#14221e]">
+                    <div
+                      key={it.id}
+                      className="flex justify-between text-[0.92rem] text-[#14221e]"
+                    >
                       <span>
                         {it.quantity} × {it.title}
                       </span>
@@ -367,7 +385,7 @@ export function RoomScreen({ onBack }) {
                   ))}
               </div>
 
-              <hr className="border-0 border-t border-[#e2e8f0] mt-[0.75rem] mx-0 mb-[1rem]" />
+              <hr className="border-0 border-t border-[#e2e8f0] mt-3 mx-0 mb-4" />
 
               <div className="flex flex-col gap-[0.6rem]">
                 <div className="flex justify-between text-[0.9rem] text-[#14221e]">
@@ -382,7 +400,7 @@ export function RoomScreen({ onBack }) {
                   <span>Layanan (5%)</span>
                   <span>{formatRupiah(serviceFee)}</span>
                 </div>
-                <div className="flex justify-between border-t border-[#e2e8f0] pt-[0.85rem] mt-[0.25rem] text-[1.15rem] text-[#14221e]">
+                <div className="flex justify-between border-t border-[#e2e8f0] pt-[0.85rem] mt-1 text-[1.15rem] text-[#14221e]">
                   <strong className="font-bold">Total ilustratif</strong>
                   <strong className="text-[#185752] font-bold">
                     {formatRupiah(totalGrand)}
@@ -392,10 +410,15 @@ export function RoomScreen({ onBack }) {
             </div>
 
             {/* Notes & Allergy Box */}
-            <div className="bg-transparent py-0 px-[0.25rem] mb-[1.25rem]">
+            <div className="bg-transparent py-0 px-1 mb-5">
               <div className="flex justify-between items-center mb-[0.35rem]">
-                <span className="text-[0.92rem] font-semibold text-[#14221e]">Catatan & alergi</span>
-                <button type="button" className="bg-transparent border-0 text-[#185752] font-semibold text-[0.88rem] cursor-pointer p-0">
+                <span className="text-[0.92rem] font-semibold text-[#14221e]">
+                  Catatan & alergi
+                </span>
+                <button
+                  type="button"
+                  className="bg-transparent border-0 text-[#185752] font-semibold text-[0.88rem] cursor-pointer p-0"
+                >
                   Tambah
                 </button>
               </div>
@@ -405,12 +428,12 @@ export function RoomScreen({ onBack }) {
             </div>
 
             {/* Confirmation Instruction Alert */}
-            <div className="bg-[#dfede6] rounded-[14px] py-[0.85rem] px-[1rem] flex gap-[0.75rem] items-start mb-[1.35rem]">
-              <div className="w-[20px] h-[20px] rounded-full border-[1.5px] border-[#185752] flex items-center justify-center text-[0.75rem] text-[#185752] shrink-0 mt-[2px]">
+            <div className="bg-[#dfede6] rounded-[14px] py-[0.85rem] px-4 flex gap-3 items-start mb-[1.35rem]">
+              <div className="w-5 h-5 rounded-full border-[1.5px] border-[#185752] flex items-center justify-center text-[0.75rem] text-[#185752] shrink-0 mt-0.5">
                 ✓
               </div>
               <div>
-                <h4 className="mt-0 mx-0 mb-[0.25rem] text-[0.88rem] font-semibold text-[#123f3c]">
+                <h4 className="mt-0 mx-0 mb-1 text-[0.88rem] font-semibold text-[#123f3c]">
                   Konfirmasi diperlukan
                 </h4>
                 <p className="m-0 text-[0.75rem] text-[#385e57] leading-[1.45]">
@@ -422,15 +445,15 @@ export function RoomScreen({ onBack }) {
             </div>
 
             {/* Confirmation Action Buttons */}
-            <div className="flex flex-col gap-[0.75rem] pb-[4rem]">
+            <div className="flex flex-col gap-3 pb-16">
               <button
                 type="button"
-                className="bg-[#185752] text-white border-0 rounded-[14px] p-[0.95rem] text-[0.98rem] font-semibold cursor-pointer shadow-[0_4px_14px_rgba(24,87,82,0.25)] transition-[transform,background-color] duration-200 ease-in-out w-full hover:bg-[#123f3c] hover:-translate-y-[2px]"
+                className="bg-[#185752] text-white border-0 rounded-[14px] p-[0.95rem] text-[0.98rem] font-semibold cursor-pointer shadow-[0_4px_14px_rgba(24,87,82,0.25)] transition-[transform,background-color] duration-200 ease-in-out w-full hover:bg-[#123f3c] hover:-translate-y-0.5"
                 onClick={() => handleConfirmOrder("dining")}
               >
                 ✓ Konfirmasi pesanan · {formatRupiah(totalGrand)}
               </button>
-              <div className="grid grid-cols-2 gap-[0.75rem]">
+              <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
                   className={BTN_ACTION_OUTLINE}
@@ -455,7 +478,7 @@ export function RoomScreen({ onBack }) {
             ==================================================================== */}
         {subView === "housekeeping" && (
           <section className="flex flex-col w-full animate-pane-fade-in">
-            <header className="flex items-center gap-[0.85rem] mb-[1.25rem] w-full">
+            <header className="flex items-center gap-[0.85rem] mb-5 w-full">
               <button
                 type="button"
                 className={ROOM_BACK_BTN}
@@ -468,7 +491,7 @@ export function RoomScreen({ onBack }) {
             </header>
 
             {/* Hero Banner */}
-            <div className="w-full h-[145px] rounded-[18px] overflow-hidden mb-[1.15rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] bg-[#cbd5e1]">
+            <div className="w-full h-36.25 rounded-[18px] overflow-hidden mb-[1.15rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] bg-[#cbd5e1]">
               <img
                 src={hkBanner}
                 alt="Housekeeping Staff Service"
@@ -477,17 +500,20 @@ export function RoomScreen({ onBack }) {
             </div>
 
             {/* Category Tabs */}
-            <div className="flex gap-[0.5rem] overflow-x-auto mb-[1.25rem] pb-[2px] no-scrollbar" role="tablist">
+            <div
+              className="flex gap-2 overflow-x-auto mb-5 pb-0.5 no-scrollbar"
+              role="tablist"
+            >
               {["Room Cleaning", "Amenities", "Laundry & Pick-up"].map(
                 (cat) => (
                   <button
                     key={cat}
                     type="button"
                     role="tab"
-                    className={`rounded-[20px] py-[0.45rem] px-[1rem] text-[0.8rem] font-medium whitespace-nowrap cursor-pointer transition-all duration-200 ease-in-out border ${
+                    className={`rounded-[20px] py-[0.45rem] px-4 text-[0.8rem] font-medium whitespace-nowrap cursor-pointer transition-all duration-200 ease-in-out border ${
                       hkCategory === cat
                         ? "bg-[#185752] text-white border-[#185752] shadow-[0_2px_8px_rgba(24,87,82,0.25)]"
-                        : "bg-white text-[#334155] border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.03)]"
+                        : "bg-white text-[#334155] border-black/6 shadow-[0_1px_3px_rgba(0,0,0,0.03)]"
                     }`}
                     onClick={() => setHkCategory(cat)}
                     aria-selected={hkCategory === cat}
@@ -499,11 +525,11 @@ export function RoomScreen({ onBack }) {
             </div>
 
             {/* Services List */}
-            <div className="flex flex-col gap-[0.85rem] mb-[1.5rem]">
+            <div className="flex flex-col gap-[0.85rem] mb-6">
               {INITIAL_HK_SERVICES.map((srv) => (
                 <div
                   key={srv.id}
-                  className="bg-white rounded-[18px] p-[0.85rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] flex items-center gap-[1rem] cursor-pointer transition-[transform,box-shadow] duration-200 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.09)]"
+                  className="bg-white rounded-[18px] p-[0.85rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] flex items-center gap-4 cursor-pointer transition-[transform,box-shadow] duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.09)]"
                   onClick={() => setSubView("housekeeping-review")}
                   role="button"
                   tabIndex={0}
@@ -514,7 +540,7 @@ export function RoomScreen({ onBack }) {
                   <img
                     src={srv.image}
                     alt={srv.title}
-                    className="w-[110px] h-[80px] min-w-[110px] rounded-[14px] object-cover"
+                    className="w-27.5 h-20 min-w-27.5 rounded-[14px] object-cover"
                   />
                   <div className="flex flex-col gap-[0.3rem]">
                     <h3 className="m-0 font-sans-system text-[1.05rem] font-semibold text-[#14221e]">
@@ -528,7 +554,7 @@ export function RoomScreen({ onBack }) {
               ))}
             </div>
 
-            <div className="flex flex-col gap-[0.65rem] mt-[0.5rem] pb-[1rem]">
+            <div className="flex flex-col gap-[0.65rem] mt-2 pb-4">
               <button
                 type="button"
                 className={BTN_PRIMARY_ACTION}
@@ -545,7 +571,7 @@ export function RoomScreen({ onBack }) {
             ==================================================================== */}
         {subView === "housekeeping-review" && (
           <section className="flex flex-col w-full animate-pane-fade-in">
-            <header className="flex items-center gap-[0.85rem] mb-[1.25rem] w-full">
+            <header className="flex items-center gap-[0.85rem] mb-5 w-full">
               <button
                 type="button"
                 className={ROOM_BACK_BTN}
@@ -561,10 +587,12 @@ export function RoomScreen({ onBack }) {
             <div className="bg-white rounded-[20px] p-[1.35rem] shadow-[0_4px_16px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)] mb-[1.15rem]">
               <div className="flex items-center gap-[0.4rem] text-[0.9rem] font-semibold text-[#14221e] mb-[1.15rem]">
                 <span>📖 Antar ke kamar 208</span>
-                <span className="text-[#5e726b] font-normal text-[0.82rem]">· 30–40 menit*</span>
+                <span className="text-[#5e726b] font-normal text-[0.82rem]">
+                  · 30–40 menit*
+                </span>
               </div>
 
-              <div className="flex flex-col gap-[0.75rem] mb-[1rem]">
+              <div className="flex flex-col gap-3 mb-4">
                 <div className="flex justify-between text-[0.92rem] text-[#14221e]">
                   <span>1 × Dental Kit</span>
                 </div>
@@ -573,18 +601,23 @@ export function RoomScreen({ onBack }) {
                 </div>
               </div>
 
-              <hr className="border-0 border-t border-[#e2e8f0] mt-[0.75rem] mx-0 mb-[1rem]" />
+              <hr className="border-0 border-t border-[#e2e8f0] mt-3 mx-0 mb-4" />
 
-              <div className="flex justify-between border-t border-[#e2e8f0] pt-[0.85rem] mt-[0.25rem] text-[1.15rem] text-[#14221e]">
+              <div className="flex justify-between border-t border-[#e2e8f0] pt-[0.85rem] mt-1 text-[1.15rem] text-[#14221e]">
                 <strong className="font-bold">2 items</strong>
               </div>
             </div>
 
             {/* Notes Section */}
-            <div className="bg-transparent py-0 px-[0.25rem] mb-[1.25rem]">
+            <div className="bg-transparent py-0 px-1 mb-5">
               <div className="flex justify-between items-center mb-[0.35rem]">
-                <span className="text-[0.92rem] font-semibold text-[#14221e]">Catatan & alergi</span>
-                <button type="button" className="bg-transparent border-0 text-[#185752] font-semibold text-[0.88rem] cursor-pointer p-0">
+                <span className="text-[0.92rem] font-semibold text-[#14221e]">
+                  Catatan & alergi
+                </span>
+                <button
+                  type="button"
+                  className="bg-transparent border-0 text-[#185752] font-semibold text-[0.88rem] cursor-pointer p-0"
+                >
                   Tambah
                 </button>
               </div>
@@ -594,15 +627,15 @@ export function RoomScreen({ onBack }) {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col gap-[0.75rem] pb-[4rem]">
+            <div className="flex flex-col gap-3 pb-16">
               <button
                 type="button"
-                className="bg-[#185752] text-white border-0 rounded-[14px] p-[0.95rem] text-[0.98rem] font-semibold cursor-pointer shadow-[0_4px_14px_rgba(24,87,82,0.25)] transition-[transform,background-color] duration-200 ease-in-out w-full hover:bg-[#123f3c] hover:-translate-y-[2px]"
+                className="bg-[#185752] text-white border-0 rounded-[14px] p-[0.95rem] text-[0.98rem] font-semibold cursor-pointer shadow-[0_4px_14px_rgba(24,87,82,0.25)] transition-[transform,background-color] duration-200 ease-in-out w-full hover:bg-[#123f3c] hover:-translate-y-0.5"
                 onClick={() => handleConfirmOrder("housekeeping")}
               >
                 ✓ Konfirmasi pesanan
               </button>
-              <div className="grid grid-cols-2 gap-[0.75rem]">
+              <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
                   className={BTN_ACTION_OUTLINE}
@@ -625,19 +658,24 @@ export function RoomScreen({ onBack }) {
         {/* Feedback Toast Notification upon confirmation */}
         {confirmedMessage && (
           <div
-            className="fixed bottom-[clamp(100px,14vh,125px)] left-1/2 -translate-x-1/2 z-[999] bg-[rgba(18,63,60,0.96)] backdrop-blur-[10px] border border-white/20 text-white py-[0.95rem] px-[1.45rem] rounded-[30px] flex items-center gap-[0.75rem] shadow-[0_12px_36px_rgba(0,0,0,0.35)] max-w-[min(90vw,420px)] w-auto pointer-events-none animate-toast-slide-up"
+            className="fixed bottom-[clamp(100px,14vh,125px)] left-1/2 -translate-x-1/2 z-999 bg-[#123f3c]/96 backdrop-blur-[10px] border border-white/20 text-white py-[0.95rem] px-[1.45rem] rounded-[30px] flex items-center gap-3 shadow-[0_12px_36px_rgba(0,0,0,0.35)] max-w-[min(90vw,420px)] w-auto pointer-events-none animate-toast-slide-up"
             role="alert"
           >
-            <span className="bg-[#22c55e] text-white w-[24px] h-[24px] rounded-full flex items-center justify-center text-[0.85rem] font-bold shrink-0">
+            <span className="bg-[#22c55e] text-white w-6 h-6 rounded-full flex items-center justify-center text-[0.85rem] font-bold shrink-0">
               ✓
             </span>
-            <p className="m-0 text-[0.92rem] font-medium leading-[1.35]">{confirmedMessage}</p>
+            <p className="m-0 text-[0.92rem] font-medium leading-[1.35]">
+              {confirmedMessage}
+            </p>
           </div>
         )}
       </div>
 
       {/* Bottom curved dark teal footer bar */}
-      <div className="absolute bottom-0 left-0 right-0 w-full h-[85px] z-[5] pointer-events-none" aria-hidden="true">
+      <div
+        className="absolute bottom-0 left-0 right-0 w-full h-21.25 z-5 pointer-events-none"
+        aria-hidden="true"
+      >
         <svg
           viewBox="0 0 1000 100"
           preserveAspectRatio="none"
