@@ -7,7 +7,12 @@ import { ClimateScreen } from "./components/ClimateScreen";
 import { LightingScreen } from "./components/LightingScreen";
 import { CurtainsScreen } from "./components/CurtainsScreen";
 import { PrivacyScreen } from "./components/PrivacyScreen";
-import "./App.css";
+
+const LAYER_BASE =
+  "absolute inset-0 w-full h-full box-border overflow-hidden transition-[transform,opacity] duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] will-change-[transform,opacity] motion-reduce:transition-none";
+const LAYER_ACTIVE = "opacity-100 translate-y-0 scale-100 pointer-events-auto z-[2]";
+const LAYER_INACTIVE = "opacity-0 translate-y-8 scale-[0.98] pointer-events-none z-[1]";
+const SPLASH_INACTIVE = "opacity-0 -translate-y-6 scale-[0.96] pointer-events-none z-[1]";
 
 /**
  * Root Application Component
@@ -66,12 +71,12 @@ function App() {
   };
 
   return (
-    <div className="app-root">
+    <div className="relative w-screen h-dvh m-0 p-0 overflow-hidden bg-[#e8f1ec] box-border">
       {/* Layar 1: Splash Screen (Otomatis di-unmount setelah transisi selesai) */}
       {isSplashMounted && (
         <div
-          className={`app-screen-layer screen-splash ${
-            currentScreen === "splash" ? "active" : "inactive"
+          className={`${LAYER_BASE} ${
+            currentScreen === "splash" ? LAYER_ACTIVE : SPLASH_INACTIVE
           }`}
           aria-hidden={currentScreen !== "splash"}
         >
@@ -81,8 +86,8 @@ function App() {
 
       {/* Layar 2: Landing Screen */}
       <div
-        className={`app-screen-layer screen-landing ${
-          currentScreen === "landing" ? "active" : "inactive"
+        className={`${LAYER_BASE} ${
+          currentScreen === "landing" ? LAYER_ACTIVE : LAYER_INACTIVE
         }`}
         aria-hidden={currentScreen !== "landing"}
       >
@@ -91,8 +96,8 @@ function App() {
 
       {/* Layar 3: Room Screen (Room Service & Housekeeping) */}
       <div
-        className={`app-screen-layer screen-room ${
-          currentScreen === "room" ? "active" : "inactive"
+        className={`${LAYER_BASE} ${
+          currentScreen === "room" ? LAYER_ACTIVE : LAYER_INACTIVE
         }`}
         aria-hidden={currentScreen !== "room"}
       >
@@ -104,8 +109,8 @@ function App() {
 
       {/* Layar 4: Spa Booking Screen */}
       <div
-        className={`app-screen-layer screen-spa-booking ${
-          currentScreen === "spa-booking" ? "active" : "inactive"
+        className={`${LAYER_BASE} ${
+          currentScreen === "spa-booking" ? LAYER_ACTIVE : LAYER_INACTIVE
         }`}
         aria-hidden={currentScreen !== "spa-booking"}
       >
@@ -117,8 +122,8 @@ function App() {
 
       {/* Layar 5: Climate Screen */}
       <div
-        className={`app-screen-layer screen-climate ${
-          currentScreen === "climate" ? "active" : "inactive"
+        className={`${LAYER_BASE} ${
+          currentScreen === "climate" ? LAYER_ACTIVE : LAYER_INACTIVE
         }`}
         aria-hidden={currentScreen !== "climate"}
       >
@@ -127,8 +132,8 @@ function App() {
 
       {/* Layar 6: Lighting Screen */}
       <div
-        className={`app-screen-layer screen-lighting ${
-          currentScreen === "lighting" ? "active" : "inactive"
+        className={`${LAYER_BASE} ${
+          currentScreen === "lighting" ? LAYER_ACTIVE : LAYER_INACTIVE
         }`}
         aria-hidden={currentScreen !== "lighting"}
       >
@@ -137,8 +142,8 @@ function App() {
 
       {/* Layar 7: Curtains Screen */}
       <div
-        className={`app-screen-layer screen-curtains ${
-          currentScreen === "curtains" ? "active" : "inactive"
+        className={`${LAYER_BASE} ${
+          currentScreen === "curtains" ? LAYER_ACTIVE : LAYER_INACTIVE
         }`}
         aria-hidden={currentScreen !== "curtains"}
       >
@@ -147,8 +152,8 @@ function App() {
 
       {/* Layar 8: Privacy Screen */}
       <div
-        className={`app-screen-layer screen-privacy ${
-          currentScreen === "privacy" ? "active" : "inactive"
+        className={`${LAYER_BASE} ${
+          currentScreen === "privacy" ? LAYER_ACTIVE : LAYER_INACTIVE
         }`}
         aria-hidden={currentScreen !== "privacy"}
       >

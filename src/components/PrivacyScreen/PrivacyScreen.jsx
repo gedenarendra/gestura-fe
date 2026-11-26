@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./PrivacyScreen.css";
 
 const PRIVACY_OPTIONS = [
   {
@@ -42,9 +41,9 @@ export function PrivacyScreen({ onBack }) {
   };
 
   return (
-    <main className="privacy-screen" aria-label="Privacy Settings">
-      <div className="privacy-top-bar" aria-hidden="true">
-        <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+    <main className="relative w-screen h-dvh overflow-hidden bg-[#f8f9f6]" aria-label="Privacy Settings">
+      <div className="absolute top-0 left-0 w-full h-[85px] z-[5] pointer-events-none" aria-hidden="true">
+        <svg className="w-full h-full block" viewBox="0 0 1000 100" preserveAspectRatio="none">
           <defs>
             <linearGradient id="privacyHeaderTeal" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#174f4c" />
@@ -56,59 +55,86 @@ export function PrivacyScreen({ onBack }) {
         </svg>
       </div>
 
-      <div className="privacy-container">
-        <header className="privacy-header">
+      <div className="relative z-[2] w-full max-w-[480px] h-full mx-auto box-border pt-[5.5rem] px-[1.25rem] pb-[5.2rem] overflow-y-auto no-scrollbar max-h-short:pt-[4.8rem]">
+        <header className="flex items-center gap-[0.7rem] mb-[1.15rem]">
           <button
             type="button"
-            className="privacy-back"
+            className="border-0 bg-transparent text-[#142520] text-[2.15rem] leading-none py-0 px-[0.25rem] cursor-pointer"
             onClick={onBack}
             aria-label="Kembali ke menu utama"
           >
             ←
           </button>
-          <h1>Privacy</h1>
+          <h1 className="m-0 font-georgia text-[clamp(1.55rem,5vw,1.95rem)] font-medium text-[#142520]">
+            Privacy
+          </h1>
         </header>
 
-        <section className="privacy-panel">
-          <article className="privacy-card">
-            <h2>Privasi & sensor</h2>
+        <section className="min-h-[calc(100%-62px)] flex flex-col">
+          <article className="w-full min-h-[290px] box-border border border-[rgba(31,116,111,0.08)] rounded-[20px] bg-white py-[1.65rem] px-[1.55rem] shadow-[0_8px_22px_rgba(18,63,60,0.08)] max-h-short:py-[1.1rem] max-h-short:px-[1.25rem]">
+            <h2 className="mt-0 mx-0 mb-[1.45rem] text-[#1b4845] text-[clamp(1.05rem,3vw,1.18rem)] font-bold">
+              Privasi & sensor
+            </h2>
 
-            <div className="privacy-options">
-              {PRIVACY_OPTIONS.map((option) => (
-                <div className="privacy-option" key={option.id}>
-                  <div className="privacy-option-text">
-                    <strong>{option.title}</strong>
-                    <span>{option.description}</span>
+            <div className="flex flex-col gap-[1.35rem] max-h-short:gap-[0.75rem]">
+              {PRIVACY_OPTIONS.map((option) => {
+                const isActive = preferences[option.id];
+                return (
+                  <div className="min-h-[58px] flex items-center justify-between gap-[1.25rem]" key={option.id}>
+                    <div className="min-w-0 flex flex-col gap-[0.28rem]">
+                      <strong className="text-[#1b4845] text-[clamp(0.98rem,3vw,1.08rem)] leading-[1.25] font-bold">
+                        {option.title}
+                      </strong>
+                      <span className="text-[#71827c] text-[clamp(0.82rem,2.5vw,0.92rem)] leading-[1.35]">
+                        {option.description}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      className={`relative w-[58px] h-[36px] flex-[0_0_58px] border-0 rounded-full p-0 cursor-pointer transition-[background] duration-[250ms] ease-in-out motion-reduce:transition-none ${
+                        isActive ? "bg-[#1f746f]" : "bg-[#dfe4e2]"
+                      }`}
+                      onClick={() => togglePreference(option.id)}
+                      role="switch"
+                      aria-checked={isActive}
+                      aria-label={option.title}
+                    >
+                      <span
+                        className={`absolute top-[5px] w-[26px] h-[26px] rounded-full bg-white shadow-[0_2px_7px_rgba(18,63,60,0.16)] transition-[left] duration-[250ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none ${
+                          isActive ? "left-[27px]" : "left-[5px]"
+                        }`}
+                      />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    className={`privacy-switch ${preferences[option.id] ? "active" : ""}`}
-                    onClick={() => togglePreference(option.id)}
-                    role="switch"
-                    aria-checked={preferences[option.id]}
-                    aria-label={option.title}
-                  >
-                    <span className="privacy-switch-thumb" />
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </article>
 
-          <div className="privacy-actions">
-            <button type="button" className={`privacy-save ${saved ? "saved" : ""}`} onClick={handleSave}>
-              <span aria-hidden="true">✓</span>
+          <div className="flex flex-col gap-[0.8rem] mt-auto pt-[1.65rem]">
+            <button
+              type="button"
+              className={`w-full min-h-[62px] rounded-[12px] text-[clamp(0.96rem,3vw,1.05rem)] font-bold cursor-pointer border-0 text-white shadow-[0_5px_14px_rgba(31,116,111,0.18)] flex items-center justify-center gap-[0.55rem] ${
+                saved ? "bg-[#175f5b]" : "bg-[#1f746f]"
+              }`}
+              onClick={handleSave}
+            >
+              <span className="text-[1.15rem]" aria-hidden="true">✓</span>
               {saved ? "Preferensi tersimpan" : "Simpan preferensi"}
             </button>
-            <button type="button" className="privacy-main-action" onClick={onBack}>
+            <button
+              type="button"
+              className="w-full min-h-[62px] rounded-[12px] text-[clamp(0.96rem,3vw,1.05rem)] font-bold cursor-pointer border border-[#dfe6e3] bg-white text-[#1f746f]"
+              onClick={onBack}
+            >
               Kembali ke menu utama
             </button>
           </div>
         </section>
       </div>
 
-      <div className="privacy-bottom-bar" aria-hidden="true">
-        <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+      <div className="absolute bottom-0 left-0 w-full h-[85px] z-[5] pointer-events-none" aria-hidden="true">
+        <svg className="w-full h-full block" viewBox="0 0 1000 100" preserveAspectRatio="none">
           <path d="M 0 12 Q 500 42 1000 12 L 1000 100 L 0 100 Z" fill="#17544f" />
         </svg>
       </div>
